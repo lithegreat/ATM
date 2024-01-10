@@ -1,7 +1,3 @@
-*
-
-!.gitignore
-!.gitattributes
-!*/constraints
-!*/versuche
-!*/VHDL_prakt/VHDL_prakt.srcs
+VHDL_prakt.tcl
+VHDL_prakt/*
+!VHDL_prakt/VHDL_prakt.srcs
