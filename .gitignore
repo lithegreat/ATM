@@ -2,6 +2,6 @@
 
 !.gitignore
 !.gitattributes
-!./constraints
-!./versuche
+!constraints
+!versuche
 !*/VHDL_prakt/VHDL_prakt.srcs
