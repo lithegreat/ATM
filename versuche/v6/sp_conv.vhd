@@ -15,8 +15,7 @@ BEGIN
     IF res='1' THEN
       internal_reg <= "00000000";
     ELSE
-      internal_reg <= '0' & internal_reg(6 DOWNTO 0);
-      internal_reg(7) <= d_in;
+      internal_reg <= internal_reg(6 DOWNTO 0) & d_in;
     END IF;
 	END IF;
   END PROCESS r;
