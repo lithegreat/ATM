@@ -11,10 +11,13 @@ ARCHITECTURE behav OF sp_conv IS
 BEGIN
   r: PROCESS (clk)
   BEGIN
-  	IF clk'EVENT AND clk='1' THEN
-
-		-- Fill in here
-
+  IF clk'EVENT AND clk='1' THEN
+    IF res='1' THEN
+      internal_reg <= "00000000";
+    ELSE
+      internal_reg <= '0' & internal_reg(6 DOWNTO 0);
+      internal_reg(7) <= d_in;
+    END IF;
 	END IF;
   END PROCESS r;
   d_out <= internal_reg;
