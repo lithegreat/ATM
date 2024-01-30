@@ -1,7 +1,7 @@
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 
 entity fifo is
   generic
@@ -41,7 +41,7 @@ begin
     if rising_edge(clk_in) then
       if res = '1' then
         write_ptr <= (others => '0');
-      elsif we = '1' and not full_flag then
+      elsif we = '1' and full_flag = '1' then
         mem(to_integer(write_ptr(ld_depth - 1 downto 0))) <= data1;
         write_ptr                                         <= write_ptr + 1;
       end if;
@@ -53,7 +53,7 @@ begin
     if rising_edge(clk_out) then
       if res = '1' then
         read_ptr <= (others => '0');
-      elsif re = '1' and not empty_flag then
+      elsif re = '1' and empty_flag = '1' then
         data2    <= mem(to_integer(read_ptr(ld_depth - 1 downto 0)));
         read_ptr <= read_ptr + 1;
       end if;
@@ -101,11 +101,19 @@ begin
       end if;
     end if;
 
-		if abs(to_integer(write_ptr_sync(ld_depth - 1 downto 0)) - to_integer(read_ptr(ld_depth - 1 downto 0))) = level then
-			level_reach <= '1';
-		else
-			level_reach <= '0';
-		end if;
+    if read_ptr(ld_depth) = write_ptr_sync(ld_depth) then
+      if to_integer(write_ptr_sync(ld_depth - 1 downto 0)) - to_integer(read_ptr(ld_depth - 1 downto 0)) = level then
+        level_reach <= '1';
+      else
+        level_reach <= '0';
+      end if;
+    else
+      if to_integer(write_ptr_sync(ld_depth - 1 downto 0)) + 2 ** ld_depth - to_integer(read_ptr(ld_depth - 1 downto 0)) = level then
+        level_reach <= '1';
+      else
+        level_reach <= '0';
+      end if;
+    end if;
 
   end process comparator_empty;
 

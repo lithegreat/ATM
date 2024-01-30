@@ -8,6 +8,26 @@ end fifo_tb;
 architecture stimul of fifo_tb is
 
   -- Component declaration
+  component fifo is
+    generic
+    (
+      ld_depth : integer := 3;
+      level    : integer := 5
+    );
+    port
+    (
+      clk_in      : in std_logic;
+      clk_out     : in std_logic;
+      res         : in std_logic;
+      we          : in std_logic;
+      re          : in std_logic;
+      full        : out std_logic;
+      empty       : out std_logic;
+      level_reach : out std_logic;
+      data1       : in std_logic_vector (7 downto 0);
+      data2       : out std_logic_vector (7 downto 0)
+    );
+  end component;
 
   signal clk1, clk2, res : std_logic := '0';
   signal we, re          : std_logic := '0';
@@ -19,7 +39,25 @@ architecture stimul of fifo_tb is
 begin
 
   -- Component instantiation
-  mut : ...
+  mut : fifo
+  generic map
+  (
+  ld_depth => 3,
+  level    => 5
+  )
+  port map
+  (
+    clk_in      => clk1,
+    clk_out     => clk2,
+    res         => res,
+    we          => we,
+    re          => re,
+    full        => full,
+    empty       => empty,
+    level_reach => lr,
+    data1       => data1,
+    data2       => data2
+  );
 
   c1 : process
   begin
