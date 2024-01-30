@@ -1,86 +1,86 @@
-LIBRARY IEEE;
-USE IEEE.std_logic_1164.ALL;
-USE IEEE.numeric_std.ALL;
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 
-ENTITY fifo_tb IS
-END fifo_tb;
+entity fifo_tb is
+end fifo_tb;
 
-ARCHITECTURE stimul OF fifo_tb IS
+architecture stimul of fifo_tb is
 
-	-- Component declaration
-	
-	SIGNAL clk1,clk2,res :std_logic := '0';
-	SIGNAL we,re :std_logic := '0';
-	SIGNAL full,empty,lr : std_logic;
-	SIGNAL data1, data2 : std_logic_vector (7 DOWNTO 0):="00000000";
-	CONSTANT t1 : time := 25 ns;
-	CONSTANT t2 : time := 40 ns;
-	
-BEGIN
+  -- Component declaration
 
-	-- Component instantiation
-	mut: ...
+  signal clk1, clk2, res : std_logic := '0';
+  signal we, re          : std_logic := '0';
+  signal full, empty, lr : std_logic;
+  signal data1, data2    : std_logic_vector (7 downto 0) := "00000000";
+  constant t1            : time                          := 25 ns;
+  constant t2            : time                          := 40 ns;
 
-	c1: PROCESS
-	BEGIN
-		WAIT FOR t1;
-		clk1 <= NOT clk1;
-	END PROCESS c1;
-	c2: PROCESS
-	BEGIN
-		WAIT FOR t2;
-		clk2 <= NOT clk2;
-	END PROCESS c2;
-	res <= '1' AFTER 30 ns, '0' AFTER 200 ns;
-	
-	sw: PROCESS
-		VARIABLE val : unsigned(7 DOWNTO 0) := "00000001";
-	BEGIN
-	    WHILE true loop
-		WAIT FOR 10*t1;
-		we <= '1';
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		data1 <= STD_LOGIC_VECTOR(val);
-		val := val+1;
-		WAIT FOR 2*t1;
-		we <= '0';
-		WAIT FOR 8*t1;
-	    END LOOP;
-	END PROCESS;
-	sr: PROCESS
-	BEGIN
-	    WHILE true loop
-		re <= '0';
-		WAIT FOR 20*t2;
-		re <= '1';
-		WAIT FOR 16*t2;
-	    END LOOP;
-	END PROCESS;
-	
-END stimul;
+begin
+
+  -- Component instantiation
+  mut : ...
+
+  c1 : process
+  begin
+    wait for t1;
+    clk1 <= not clk1;
+  end process c1;
+  c2 : process
+  begin
+    wait for t2;
+    clk2 <= not clk2;
+  end process c2;
+  res <= '1' after 30 ns, '0' after 200 ns;
+
+  sw : process
+    variable val : unsigned(7 downto 0) := "00000001";
+  begin
+    while true loop
+      wait for 10 * t1;
+      we    <= '1';
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      data1 <= std_logic_vector(val);
+      val := val + 1;
+      wait for 2 * t1;
+      we <= '0';
+      wait for 8 * t1;
+    end loop;
+  end process;
+  sr : process
+  begin
+    while true loop
+      re <= '0';
+      wait for 20 * t2;
+      re <= '1';
+      wait for 16 * t2;
+    end loop;
+  end process;
+
+end stimul;
